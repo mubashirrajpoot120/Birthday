@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shahid — Happy 18th Birthday 🎉</title>
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg1: #0f1024;
+      --bg2: #160b2b;
+      --accent1: #ff6bcb; /* pink */
+      --accent2: #6be7ff; /* cyan */
+      --accent3: #ffd166; /* gold */
+      --glass: rgba(255,255,255,0.06);
+      --muted: rgba(255,255,255,0.78);
+      --soft: rgba(255,255,255,0.04);
+      --maxw: 1300px;
+      --radius:18px;
+    }
+
+    /* Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 100%);
+      color: white;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      line-height:1.45;
+    }
+
+    /* Container */
+    .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:28px;
+    }
+
+    /* Floating gradient layers (parallax) */
+    .bg-layers{
+      position:fixed; inset:0; z-index:-2; pointer-events:none;
+      overflow:hidden;
+    }
+    .layer {
+      position:absolute;
+      filter: blur(60px) saturate(120%);
+      transform: translate3d(0,0,0);
+      opacity:0.85;
+      mix-blend-mode: screen;
+    }
+    .layer.a{ width:720px;height:720px; right:-120px; top:-60px; background: radial-gradient(circle at 20% 20%, var(--accent1) 0%, transparent 40%); }
+    .layer.b{ width:900px;height:900px; left:-200px; bottom:-160px; background: radial-gradient(circle at 80% 80%, var(--accent2) 0%, transparent 40%); }
+    .layer.c{ width:600px;height:600px; left:18%; top:10%; background: radial-gradient(circle at 50% 50%, var(--accent3) 0%, transparent 40%); opacity:0.45; filter: blur(90px) saturate(150%); }
+
+    /* top navigation / tiny brand */
+    header{ display:flex; justify-content:space-between; align-items:center; gap:16px; padding:18px 0; position:relative; z-index:10}
+    .brand{ display:flex; align-items:center; gap:12px }
+    .brand .logo{
+      width:56px; height:56px; border-radius:12px; display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.06); font-family:'Playfair Display'; font-weight:700; color:var(--accent3);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.5);
+    }
+    .brand h1{ font-size:18px; font-weight:700; letter-spacing:0.6px; margin:0; color:#fff }
+    .brand p{ margin:0; font-size:12px; color:var(--muted) }
+
+    /* Hero */
+    .hero{
+      margin-top:8px;
+      display:grid;
+      grid-template-columns: 1fr 520px;
+      gap:28px;
+      align-items:center;
+      min-height:78vh;
+      position:relative;
+      z-index:5;
+    }
+
+    /* Left hero textual card */
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius: var(--radius);
+      padding:40px;
+      box-shadow: 0 20px 60px rgba(3,3,12,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.06);
+      position:relative;
+      overflow:visible;
+    }
+
+    .hero-eyebrow{ display:inline-block; padding:6px 12px; border-radius:999px; font-size:13px; font-weight:700;
+      background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); color:var(--accent3); letter-spacing:1px;
+      box-shadow: 0 6px 20px rgba(99,70,0,0.07);
+    }
+
+    .hero-title{
+      margin-top:18px;
+      font-family:'Playfair Display';
+      font-size:56px;
+      line-height:0.95;
+      letter-spacing:-1px;
+      text-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 18px rgba(255,107,203,0.06);
+      background: linear-gradient(90deg, #ffffff, #f7f1ff);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .hero-sub{ margin-top:14px; color:rgba(255,255,255,0.85); font-size:17px; max-width:720px; }
+
+    .hero-meta{ margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; align-items:center }
+    .pill{
+      background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      border-radius:12px; padding:10px 14px; font-weight:700; color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+      display:inline-flex; gap:10px; align-items:center;
+    }
+
+    .cta-row{ margin-top:26px; display:flex; gap:12px; align-items:center }
+    .btn{
+      padding:12px 18px; border-radius:12px; border:0; cursor:pointer; font-weight:800; letter-spacing:0.6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .btn-primary{
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color:#0b0820;
+      transform: translateZ(0);
+      box-shadow: 0 12px 40px rgba(107,231,255,0.12);
+    }
+    .btn-ghost{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Right hero - hero image with frame and animated glow */
+    .hero-photo-wrap{
+      position:relative;
+      border-radius:22px;
+      overflow:hidden;
+      min-height:420px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 10px 40px rgba(255,107,203,0.05);
+      border:1px solid rgba(255,255,255,0.05);
+      transform-style:preserve-3d;
+      transition: transform 0.8s cubic-bezier(.2,.9,.2,1);
+    }
+    .hero-photo-wrap:hover{ transform: translateY(-6px) rotateZ(-0.6deg) scale(1.01) }
+    .hero-photo{
+      width:100%; height:100%;
+      display:block;
+      object-fit:cover;
+      min-height:420px;
+      transition: transform 10s cubic-bezier(.2,.9,.2,1);
+    }
+    .hero-photo-wrap:hover .hero-photo{ transform: scale(1.06) }
+
+    /* floating glowing rim */
+    .glow-rim{
+      position:absolute; inset:-12px; border-radius:30px; z-index:-1;
+      background: linear-gradient(120deg, rgba(255,107,203,0.14), rgba(107,231,255,0.10), rgba(255,209,102,0.06));
+      filter: blur(30px); pointer-events:none;
+    }
+
+    /* Section headings */
+    .section{ margin-top:44px; position:relative; z-index:5 }
+    .section h2{
+      font-family:'Playfair Display'; font-size:28px; margin-bottom:18px; color: #fff;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    /* Gallery grid */
+    .gallery{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:18px;
+      align-items:stretch;
+    }
+    .photo-card{
+      border-radius:16px; overflow:hidden; position:relative; cursor:pointer;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+      border:1px solid rgba(255,255,255,0.04);
+      min-height:180px; height:260px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+      transition: transform .6s cubic-bezier(.2,.9,.2,1), box-shadow .45s;
+    }
+    .photo-card:hover{ transform: translateY(-10px) scale(1.02); box-shadow: 0 40px 100px rgba(0,0,0,0.7) }
+    .photo-card img{
+      width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.9s ease;
+      transform-origin:center center;
+    }
+    .photo-card:hover img{ transform: scale(1.08) }
+
+    .caption{
+      position:absolute; left:12px; bottom:12px; right:12px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.45));
+      color:white; padding:10px 12px; border-radius:8px; backdrop-filter: blur(4px);
+      font-weight:700; font-size:14px;
+    }
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background: linear-gradient(180deg, rgba(4,6,13,0.7), rgba(4,6,13,0.9));
+      z-index:1500; padding:30px;
+    }
+    .lightbox.open{ display:flex; }
+    .lb-inner{
+      width:100%; max-width:1100px; border-radius:18px; overflow:hidden; display:flex; gap:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 40px 120px rgba(3,3,12,0.7);
+    }
+    .lb-media{ flex:1; min-height:420px; display:flex; align-items:center; justify-content:center; background:#000; }
+    .lb-media img{ max-width:100%; max-height:80vh; object-fit:contain; display:block; }
+    .lb-side{ width:360px; padding:20px; display:flex; flex-direction:column; gap:12px; justify-content:center; }
+    .lb-side h3{ margin:0; font-family:'Playfair Display'; font-size:22px; color:#fff }
+    .lb-side p{ margin:0;color:rgba(255,255,255,0.85) }
+    .lb-close{ margin-top:14px; display:inline-flex; gap:8px; align-items:center; padding:10px 12px; border-radius:10px; cursor:pointer;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); font-weight:700;
+    }
+
+    /* footer */
+    footer{ margin-top:44px; color:rgba(255,255,255,0.7); text-align:center; font-size:14px; padding-bottom:40px }
+
+    /* small animations & reveal */
+    .reveal{ opacity:0; transform: translateY(30px); transition: all .8s cubic-bezier(.2,.9,.2,1) }
+    .reveal.show{ opacity:1; transform: translateY(0) }
+
+    /* responsive */
+    @media (max-width:1100px){
+      .hero{ grid-template-columns: 1fr; gap:18px; }
+      .hero-photo-wrap{ min-height:360px }
+      .lb-side{ display:none }
+    }
+    @media (max-width:520px){
+      .hero-title{ font-size:36px }
+      .photo-card{ height:180px }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-layers" aria-hidden="true">
+    <div class="layer a" id="layerA"></div>
+    <div class="layer b" id="layerB"></div>
+    <div class="layer c" id="layerC"></div>
+  </div>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">S</div>
+        <div>
+          <h1>Shahid Happy Birthday to you • 18</h1>
+          <p>Modern Color Bloom — a vibrant birthday keepsake</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <button class="btn btn-ghost" id="openGallery" title="Open gallery"><i class="fa-solid fa-images"></i> Gallery</button>
+        <button class="btn btn-primary" id="surpriseBtn"><i class="fa-solid fa-gift"></i> Surprise</button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main class="hero">
+      <section class="hero-card reveal" data-reveal>
+        <div class="hero-eyebrow">Happy 18th Birthday</div>
+        <h2 class="hero-title">SHAHID</h2>
+        <p class="hero-sub">Today is the day the world got a little brighter — may this year be your most colorful and electric one yet. This page is a small celebration of everything you are: joy, strength, laughter and light.</p>
+
+        <div class="hero-meta">
+          <div class="pill"><i class="fa-solid fa-cake-candles" style="color:var(--accent1)"></i> Age: 18</div>
+          <div class="pill"><i class="fa-solid fa-calendar" style="color:var(--accent2)"></i> October 2, 2025</div>
+          <div class="pill"><i class="fa-solid fa-heart" style="color:var(--accent3)"></i> From: Someone Who Adores You</div>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn btn-primary" id="downloadBtn"><i class="fa-solid fa-download"></i> Save / Memory</button>
+          <button class="btn btn-ghost" id="openFirst"><i class="fa-solid fa-play"></i> Start Slideshow</button>
+        </div>
+
+      </section>
+
+      <aside class="hero-photo-wrap reveal" data-reveal>
+        <div class="glow-rim" aria-hidden="true"></div>
+        <!-- hero image (use exact filename placed next to the HTML) -->
+        <img class="hero-photo" src="WhatsApp Image 2025-10-30 at 08.31.23_79e4e47f.jpg" alt="Shahid hero photo">
+      </aside>
+    </main>
+
+    <!-- MESSAGE -->
+    <section class="section reveal" data-reveal>
+      <h2>My Heart's Secret ♥</h2>
+      <div style="padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04);">
+        <p style="color:rgba(255,255,255,0.9); font-size:16px; line-height:1.6">
+          My Dearest Shahid,
+        </p>
+        <p style="color:rgba(255,255,255,0.82)">
+          From the moment I met you, every ordinary day turned vibrant and new. Your smile is the spark of my mornings and your presence is the warmth of my nights. On your 18th birthday I want to tell you — I love you deeply and wholly. May this year be full of vivid memories, big wins and gentle moments.
+        </p>
+        <p style="font-weight:800; color:var(--accent3)">Forever Yours,<br>With all my heart, Muhammad Mubashir</p>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section reveal" data-reveal id="gallerySection">
+      <h2>Bright Moments — Gallery</h2>
+      <div class="gallery" id="gallery">
+        <!-- Replace paths with your image files (same names from your uploaded HTML) -->
+        <div class="photo-card" data-title="Happy Birthday" data-desc="The day I realized you're my everything">
+          <img src="WhatsApp Image 2025-10-30 at 08.31.23_79e4e47f.jpg" alt="Happy Birthday">
+          <div class="caption">Happy Birthday</div>
+        </div>
+
+        <div class="photo-card" data-title="Memory 1" data-desc="Your laughter brightens my world">
+          <img src="sh.jpg" alt="Memory 1">
+          <div class="caption">Memory 1</div>
+        </div>
+
+        <div class="photo-card" data-title="Group Photo" data-desc="Every moment with you is magical">
+          <img src="s.jpg" alt="Group Photo">
+          <div class="caption">Group Photo</div>
+        </div>
+
+        <div class="photo-card" data-title="Memory 2" data-desc="Pure joy together">
+          <img src="t.jpg" alt="Memory 2">
+          <div class="caption">Memory 2</div>
+        </div>
+
+        <div class="photo-card" data-title="Precious" data-desc="You're more precious than diamonds">
+          <img src="m.png" alt="Precious">
+          <div class="caption">Precious</div>
+        </div>
+
+        <div class="photo-card" data-title="Support" data-desc="I am always here for you">
+          <img src="Snapchat-207730433.jpg" alt="Supportive">
+          <div class="caption">Supportive</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY YOU'RE INCREDIBLE (mini) -->
+    <section class="section reveal" data-reveal>
+      <h2>Why You're Incredible</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:12px">
+        <div style="padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04)">
+          <h3 style="margin:0 0 6px 0; font-family:'Playfair Display'">Heart of Gold</h3>
+          <p style="margin:0;color:rgba(255,255,255,0.85)">Your kindness touches everyone around you.</p>
+        </div>
+        <div style="padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04)">
+          <h3 style="margin:0 0 6px 0; font-family:'Playfair Display'">Brilliant Mind</h3>
+          <p style="margin:0;color:rgba(255,255,255,0.85)">Your thoughts inspire and lead the way.</p>
+        </div>
+        <div style="padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04)">
+          <h3 style="margin:0 0 6px 0; font-family:'Playfair Display'">Magical Humor</h3>
+          <p style="margin:0;color:rgba(255,255,255,0.85)">You turn ordinary moments into joyful memories.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="reveal" data-reveal>
+      Developed with ♥ by MS Edits
+    </footer>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+    <div class="lb-inner" role="document">
+      <div class="lb-media">
+        <img id="lbimg" src="" alt="Large photo">
+      </div>
+      <div class="lb-side">
+        <h3 id="lbtitle">Title</h3>
+        <p id="lbdesc">Description</p>
+
+        <div style="display:flex; gap:8px; margin-top:10px">
+          <button class="btn btn-ghost" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="btn btn-ghost" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <button class="lb-close" id="closeLb"><i class="fa-solid fa-xmark"></i> Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Helpers & Reveal ----------
+    const revealEls = document.querySelectorAll('[data-reveal]');
+    function revealOnScroll(){
+      revealEls.forEach(el=>{
+        const r = el.getBoundingClientRect();
+        if(r.top < window.innerHeight - 80) el.classList.add('show');
+      });
+    }
+    window.addEventListener('load', revealOnScroll);
+    window.addEventListener('scroll', revealOnScroll);
+
+    // Parallax background movement (subtle)
+    const layerA = document.getElementById('layerA');
+    const layerB = document.getElementById('layerB');
+    const layerC = document.getElementById('layerC');
+    window.addEventListener('mousemove', (e)=>{
+      const x = (e.clientX / window.innerWidth) - 0.5;
+      const y = (e.clientY / window.innerHeight) - 0.5;
+      layerA.style.transform = `translate(${x * -30}px, ${y * -30}px)`;
+      layerB.style.transform = `translate(${x * 40}px, ${y * 30}px)`;
+      layerC.style.transform = `translate(${x * -20}px, ${y * 20}px)`;
+    });
+
+    // ---------- Gallery & Lightbox ----------
+    const cards = Array.from(document.querySelectorAll('.photo-card'));
+    const lightbox = document.getElementById('lightbox');
+    const lbimg = document.getElementById('lbimg');
+    const lbtitle = document.getElementById('lbtitle');
+    const lbdesc = document.getElementById('lbdesc');
+    const closeLb = document.getElementById('closeLb');
+    let idx = 0;
+
+    function openLightbox(i){
+      const card = cards[i];
+      const img = card.querySelector('img');
+      lbimg.src = img.src;
+      lbimg.alt = img.alt || '';
+      lbtitle.textContent = card.dataset.title || img.alt || 'Photo';
+      lbdesc.textContent = card.dataset.desc || '';
+      lightbox.classList.add('open');
+      lightbox.style.display = 'flex';
+      lightbox.setAttribute('aria-hidden','false');
+      idx = i;
+    }
+    function closeLightbox(){
+      lightbox.classList.remove('open');
+      lightbox.style.display = 'none';
+      lightbox.setAttribute('aria-hidden','true');
+      lbimg.src = '';
+    }
+    function showNext(dir=1){
+      idx = (idx + dir + cards.length) % cards.length;
+      openLightbox(idx);
+    }
+
+    cards.forEach((c,i)=> c.addEventListener('click', ()=> openLightbox(i)));
+    document.getElementById('prevBtn').addEventListener('click', ()=> showNext(-1));
+    document.getElementById('nextBtn').addEventListener('click', ()=> showNext(1));
+    closeLb.addEventListener('click', closeLightbox);
+    document.getElementById('openGallery').addEventListener('click', ()=> openLightbox(0));
+    document.getElementById('openFirst').addEventListener('click', ()=> {
+      // start auto slideshow
+      openLightbox(0);
+      let slide = 1;
+      const slideInt = setInterval(()=>{
+        if(!lightbox.classList.contains('open')) { clearInterval(slideInt); return; }
+        showNext(1);
+      }, 2600);
+    });
+
+    // click outside to close
+    lightbox.addEventListener('click', (e)=> {
+      if(e.target === lightbox) closeLightbox();
+    });
+
+    // keyboard navigation
+    document.addEventListener('keydown', (e)=>{
+      if(lightbox.style.display === 'flex'){
+        if(e.key === 'Escape') closeLightbox();
+        if(e.key === 'ArrowRight') showNext(1);
+        if(e.key === 'ArrowLeft') showNext(-1);
+      }
+    });
+
+    // ---------- Surprise Confetti (emoji) ----------
+    document.getElementById('surpriseBtn').addEventListener('click', ()=>{
+      const messages = ["I LOVE YOU SHAHID ❤", "HAPPY 18th! 🎂", "YOU ARE MY EVERYTHING 🌈", "BE MINE FOREVER 💖"];
+      let m = 0;
+      // show ephemeral center messages using lightbox area
+      lbtitle.textContent = messages[m];
+      lbdesc.textContent = " Happy Birthday Dear Shahid Rajpoot";
+      lbimg.src = "WhatsApp Image 2025-10-30 at 08.31.23_79e4e47f.jpg";
+      lightbox.classList.add('open');
+      lightbox.style.display = 'flex';
+      lightbox.setAttribute('aria-hidden','false');
+
+      const confettiEmojis = ['🎉','✨','🥳','💖','🌟','🎂','🍬'];
+      for (let i=0;i<36;i++){
+        const el = document.createElement('div');
+        el.style.position='fixed';
+        el.style.left = (50 + (Math.random()*140-70)) + '%';
+        el.style.top = (35 + Math.random()*50) + '%';
+        el.style.fontSize = (14 + Math.random()*36) + 'px';
+        el.style.zIndex = 1600;
+        el.style.pointerEvents = 'none';
+        el.textContent = confettiEmojis[Math.floor(Math.random()*confettiEmojis.length)];
+        document.body.appendChild(el);
+        const dx = (Math.random()*300-150);
+        const dy = (Math.random()*260+80);
+        el.animate([
+          { transform:'translateY(0) translateX(0)', opacity:1 },
+          { transform:`translateY(${dy}px) translateX(${dx}px) rotate(${Math.random()*720}deg)`, opacity:0 }
+        ], { duration: 2000 + Math.random()*1400, easing:'cubic-bezier(.2,.9,.2,1)'});
+        setTimeout(()=> el.remove(), 4200);
+      }
+
+      const interval = setInterval(()=>{
+        m = (m+1) % messages.length;
+        lbtitle.textContent = messages[m];
+      }, 1400);
+
+      setTimeout(()=>{
+        clearInterval(interval);
+        setTimeout(closeLightbox, 2400);
+      }, 5200);
+    });
+
+    // ---------- Save / Print ----------
+    document.getElementById('downloadBtn').addEventListener('click', ()=> window.print());
+
+    // ---------- small accessibility fallback: lazy loading ----------
+    document.querySelectorAll('img').forEach(img=>{
+      if(!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
+    });
+
+    // ---------- ensure images show full (just a safety) ----------
+    // If an image fails, show a tasteful SVG placeholder
+    document.querySelectorAll('img').forEach(img=>{
+      img.addEventListener('error', ()=>{
+        img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+          `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><rect width="100%" height="100%" fill="#11121a" /><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Nunito, sans-serif" font-size="28" fill="#9aa6b2">Image not found</text></svg>`
+        );
+      });
+    });
+
+  </script>
+</body>
+</html>
